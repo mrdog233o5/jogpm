@@ -28,8 +28,8 @@ def generatePassword(passwordLength, argc):
     allChars = {
         "char":list("qwertyuiopasdfghjklzxcvbnm"),
         "num":list("11234567890"),
-        "symbol":"_.",
-        "symbolSpecial":"`~!@#$%^&*()-=+[]{}\\|;:'\",./<>?",
+        "symbol":"_",
+        "symbolSpecial":"`~!@#$%^&*()=+[]{}\\|;:'\",/<>?",
     }
     charUsed = {
         "char":False,
