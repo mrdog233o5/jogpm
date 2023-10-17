@@ -1,10 +1,11 @@
-#!/opt/homebrew/bin/python3
+#!/usr/bin/env python3
 
 from sys import argv
 import termlib
 import random
+import os
 
-argv = ["", "gen", "8", "--char", "--num"]
+argv = ["", "gen", "8", "--char", "--num", "--cp"]
 
 def main():
     prt=termlib.printer()
@@ -16,15 +17,26 @@ def main():
     if argc <= 1:
         print("use help for a list of command")
         exit(1)
+
     if argc > 1:
         if getArg("mode",1) in ["help"]:
             prt.printgrid(commandList, space=15)
         elif argv[1] == "gen":
             passwordAccepted = False
             passwordLen = int(getArg("length", 2))
+            password = ""
+            copy = False
+            for i in range(3, argc):
+                match argv[i]:
+                    case "cp":
+                        copy = True
             while not passwordAccepted:
-                generatePassword(passwordLen, argc)
+                password = generatePassword(passwordLen, argc)
+                print(password)
                 passwordAccepted = decide("use this password", True)
+            if copy:
+                os.system(f"echo {password} | pbcopy")
+                print("password copied to clipboard!")
         else:
             print("command not found")
             exit(1)
@@ -47,8 +59,6 @@ def generatePassword(passwordLength, argc):
     for i in range(3,argc):
         if argv[i].startswith("--") and argv[i][2:] in list(charUsed.keys()):
             charUsed[argv[i][2:]] = True
-        else:
-            print(f"{argv[i]} not found")
     for i in list(charUsed.keys()):
         if charUsed[i]:
             charToUse+=allChars[i]
@@ -57,7 +67,7 @@ def generatePassword(passwordLength, argc):
             print("no flags chosen")
             exit(1)
         outputPassword+=random.choice(charToUse)
-    print(outputPassword)
+    return outputPassword
 
 def decide(question, default) -> bool:
     print(question, end="")
