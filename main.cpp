@@ -56,6 +56,7 @@ int main(int argc, char *argv[]) {
             cout << password << endl;
             passwordAccepted = usrChoice("use this passowrd", 0);
         }
+        cout << "your password > " << password << endl;
     } else {
         cout << "mode not found" << endl;
     }
