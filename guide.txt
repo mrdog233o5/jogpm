@@ -1,0 +1,17 @@
+Thank you for using jogpm, a password manager created by mrdog233o5 and james.
+
+Usage:
+    
+    help    read th help page (the one that you are currently reading)
+
+    gen     generte a password, syntax:
+
+                jogpm gen <password length> <flags>
+
+            all of the flags:
+
+                --char      include english characters
+                --num       include digits
+                --sym       include symbols
+                --sybSpec   include special symbols
+                --cp        copy the generated password
