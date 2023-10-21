@@ -1,14 +1,18 @@
 #include <cstring>
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
-string genPassword(const char* chars, int length) {
+string genPassword(vector<const char*> charsToUse, int length) {
+    int index;
     string password;
     srand(time(0));
+
     for (int i = 0; i < length; i++) {
-        password += chars[rand() % sizeof(chars)/sizeof(chars[0])];
+        index = rand() % charsToUse.size();
+        password += charsToUse[index][rand() % strlen(charsToUse[index])];
     }
     return password;
 }
@@ -32,10 +36,6 @@ bool usrChoice(string question, bool defaultAns) {
 }
 
 int main(int argc, char *argv[]) {
-    const char* chars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
-    const char* nums = "1234567890";
-    const char* symbols = "_.-";
-    const char* symbolsSpecial = "~!@#$%^&*()_+`-={}|[]\\:;\"',<.>/?";
 
     if (argc == 1) {
         cout << "no mode given" << endl;
@@ -44,29 +44,43 @@ int main(int argc, char *argv[]) {
     
     string mode = argv[1];
     if (mode == "help") {
+
         system("cat ./guide.txt");
+
     } else if (mode == "init") {
+
         system("./setup.sh");
+
     } else if (mode == "gen") {
+
+        const char* chars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+        const char* nums = "1234567890";
+        const char* symbols = "_.-";
+        const char* symbolsSpecial = "~!@#$%^&*()_+`-={}|[]\\:;\"',<.>/?";
+        vector<const char*> charsToUse;
         bool passwordAccepted = 0;
         string password;
         int tm;
 
         // check generating flags
         for (int i = 3; i < argc; i++) {
-            if (strcmp(argv[i], "--char") == 0) {
-                // add chars to charsToUse
-                
-            }
-            if (strcmp(argv[i], "--char") == 0) {
-                // add nums to charsToUse
-            }
+            if (strcmp(argv[i], "--char") == 0)
+                charsToUse.push_back(chars);
+            
+            if (strcmp(argv[i], "--num") == 0)
+                charsToUse.push_back(nums);
+            if (strcmp(argv[i], "--syb") == 0)
+                charsToUse.push_back(symbols);
+            if (strcmp(argv[i], "--sybSpec") == 0)
+                charsToUse.push_back(symbolsSpecial);
         }
+
+
 
         while (!passwordAccepted) {
             cout << "generating password" << endl;
             while (tm == time(0)) {}
-            password = genPassword(chars, stoi(argv[2]));
+            password = genPassword(charsToUse, stoi(argv[2]));
             cout << password << endl;
             passwordAccepted = usrChoice("use this passowrd", 0);
             cout << endl;

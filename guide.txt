@@ -12,6 +12,6 @@ Usage:
 
                 --char      include english characters
                 --num       include digits
-                --sym       include symbols
+                --syb       include symbols
                 --sybSpec   include special symbols
                 --cp        copy the generated password
