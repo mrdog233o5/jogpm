@@ -1,7 +1,7 @@
-CC=pyinstaller
+CC=g++
 CFILE=main
-CFLAGS = --clean --noconsole --noconfirm --uac-admin --hidden-import pygame -F
 
 run:
-	$(CC) $(CFLAGS) $(CFILE).py
+	$(CC) -o $(CFILE) $(CFILE).cpp
+
 	echo built done | lolcat
