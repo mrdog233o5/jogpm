@@ -73,15 +73,10 @@ int main(int argc, char *argv[]) {
     
     string mode = argv[1];
     if (mode == "help") {
-
         system("cat ./guide.txt");
-
     } else if (mode == "setup") {
-
         system("./setup.sh");
-
     } else if (mode == "gen") {
-
         const char* chars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
         const char* nums = "1234567890";
         const char* symbols = "_.-";
@@ -120,17 +115,12 @@ int main(int argc, char *argv[]) {
             cout << "Where will this password be used > ";
             cin >> passwordName;
             savePassword(passwordName, password);
-            cout << "Password saved!" << endl << "password name: " << passwordName << endl << "password value: " << password << endl;
+            cout << endl << "Password saved!" << endl << "password name: " << passwordName << endl << "password value: " << password << endl;
         }
-
     } else if (strcmp(argv[1], "save") == 0) {
-
         savePassword(argv[2], argv[3]);
-
     } else {
-
         system("cat ./guide.txt");
-
     }
 
     return 0;
