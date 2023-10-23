@@ -70,6 +70,11 @@ string getPassword(string passwordName) {
     string password;
 
     fin.open(passwordFile, ios::in);
+    if (!fin.is_open()) {
+        cout << "error occored when reading password file, or password name \" " << passwordName << " \" doesnt exist" << endl << endl << endl;
+        throw 1;
+    }
+
     getline(fin, password);
     fin.close();
 
@@ -150,7 +155,13 @@ int main(int argc, char *argv[]) {
         savePassword(argv[2], argv[3]);
     } else if (strcmp(argv[1], "get") == 0) {
         string password = getPassword(argv[2]);
-        copy(password);
+        cout << "password named " << argv[2] << " : " << password << endl;
+        for (int i = 2; i < argc; i++) {
+            if (strcmp(argv[i], "--cp") == 0) {
+                copy(password);
+                cout << "Password copied to clipboard!" << endl;
+            }
+        }
 
     } else {
         system("cat ./guide.txt");
