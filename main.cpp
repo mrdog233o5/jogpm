@@ -51,6 +51,19 @@ string osys(const string& command) {
     return result;
 }
 
+void savePassword(string passwordName, string password) {
+    ofstream fout;
+    string user = osys("whoami");
+    user.pop_back();
+    string passwordFile = "/Users/"+user+"/"+passwordName+".txt";
+
+    fout.open(passwordFile);
+
+    fout << password;
+
+    fout.close();
+}
+
 int main(int argc, char *argv[]) {
 
     if (argc == 1) {
@@ -91,8 +104,6 @@ int main(int argc, char *argv[]) {
                 charsToUse.push_back(symbolsSpecial);
         }
 
-
-
         while (!passwordAccepted) {
             cout << "generating password" << endl;
             while (tm == time(0)) {}
@@ -103,22 +114,18 @@ int main(int argc, char *argv[]) {
             tm = time(0);
         }
         cout << "your password > " << password << endl;
+        bool saveGenedPassword = usrChoice("save this password", 1);
+        if (saveGenedPassword) {
+            string passwordName;
+            cout << "Where will this password be used > ";
+            cin >> passwordName;
+            savePassword(passwordName, password);
+            cout << "Password saved!" << endl << "password name: " << passwordName << endl << "password value: " << password << endl;
+        }
 
     } else if (strcmp(argv[1], "save") == 0) {
-        cout << "po" << endl;
-        ofstream fout;
-        string user = osys("whoami");
-        user.pop_back();
-        string password = argv[2];
-        string passwordFile = "/Users/"+user+"/"+password+".txt";
-        cout << passwordFile << endl;
-        cout << "qwert" << endl;
 
-        fout.open(passwordFile);
-
-        fout << argv[3];
-
-        fout.close();
+        savePassword(argv[2], argv[3]);
 
     } else {
 
