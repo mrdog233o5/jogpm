@@ -1,6 +1,7 @@
 #include <cstring>
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <vector>
 
 using namespace std;
@@ -35,6 +36,21 @@ bool usrChoice(string question, bool defaultAns) {
     }
 }
 
+string osys(const string& command) {
+    string result;
+    char buffer[128];
+
+    FILE* pipe = popen(command.c_str(), "r");
+
+    while (fgets(buffer, sizeof(buffer), pipe) != nullptr) {
+        result += buffer;
+    }
+
+    pclose(pipe);
+
+    return result;
+}
+
 int main(int argc, char *argv[]) {
 
     if (argc == 1) {
@@ -47,7 +63,7 @@ int main(int argc, char *argv[]) {
 
         system("cat ./guide.txt");
 
-    } else if (mode == "init") {
+    } else if (mode == "setup") {
 
         system("./setup.sh");
 
@@ -88,8 +104,26 @@ int main(int argc, char *argv[]) {
         }
         cout << "your password > " << password << endl;
 
+    } else if (strcmp(argv[1], "save") == 0) {
+        cout << "po" << endl;
+        ofstream fout;
+        string user = osys("whoami");
+        user.pop_back();
+        string password = argv[2];
+        string passwordFile = "/Users/"+user+"/"+password+".txt";
+        cout << passwordFile << endl;
+        cout << "qwert" << endl;
+
+        fout.open(passwordFile);
+
+        fout << argv[3];
+
+        fout.close();
+
     } else {
-        cout << "mode not found" << endl;
+
+        system("cat ./guide.txt");
+
     }
 
     return 0;

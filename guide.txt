@@ -4,6 +4,8 @@ Usage:
     
     help    read th help page (the one that you are currently reading)
 
+    setup   setup jogpm on your computer, only need to be runned once
+
     gen     generte a password, syntax:
 
                 jogpm gen <password length> <flags>
