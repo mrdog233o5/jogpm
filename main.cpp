@@ -55,13 +55,32 @@ void savePassword(string passwordName, string password) {
     ofstream fout;
     string user = osys("whoami");
     user.pop_back();
-    string passwordFile = "/Users/"+user+"/"+passwordName+".txt";
+    string passwordFile = "/Users/"+user+"/"+passwordName+".passwd";
 
     fout.open(passwordFile);
-
     fout << password;
-
     fout.close();
+}
+
+string getPassword(string passwordName) {
+    ifstream fin;
+    string user = osys("whoami");
+    user.pop_back();
+    string passwordFile = "/Users/"+user+"/"+passwordName+".passwd";
+    string password;
+
+    fin.open(passwordFile, ios::in);
+    getline(fin, password);
+    fin.close();
+
+    return password;
+}
+
+void copy(string content) {
+    string command = "echo \"";
+    command += content;
+    command += "\" | pbcopy";
+    system(command.c_str());
 }
 
 int main(int argc, char *argv[]) {
@@ -85,6 +104,7 @@ int main(int argc, char *argv[]) {
         bool passwordAccepted = 0;
         string password;
         int tm;
+        bool copyPassword = false;
 
         // check generating flags
         for (int i = 3; i < argc; i++) {
@@ -97,6 +117,8 @@ int main(int argc, char *argv[]) {
                 charsToUse.push_back(symbols);
             if (strcmp(argv[i], "--sybSpec") == 0)
                 charsToUse.push_back(symbolsSpecial);
+            if (strcmp(argv[i], "--cp") == 0)
+                copyPassword = true;
         }
 
         while (!passwordAccepted) {
@@ -109,6 +131,13 @@ int main(int argc, char *argv[]) {
             tm = time(0);
         }
         cout << "your password > " << password << endl;
+
+        //copy password
+        if (copyPassword) {
+            copy(password);
+            cout << "Password copied to clipboard!" << endl;
+        }
+
         bool saveGenedPassword = usrChoice("save this password", 1);
         if (saveGenedPassword) {
             string passwordName;
@@ -119,6 +148,10 @@ int main(int argc, char *argv[]) {
         }
     } else if (strcmp(argv[1], "save") == 0) {
         savePassword(argv[2], argv[3]);
+    } else if (strcmp(argv[1], "get") == 0) {
+        string password = getPassword(argv[2]);
+        copy(password);
+
     } else {
         system("cat ./guide.txt");
     }
