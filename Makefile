@@ -7,17 +7,18 @@ CCARG=$(CSOURCE) -o $(CFILE)
 PANDOC=pandoc
 PANDOCARG=-s $(MANSOURCE) -t man -o $(MANFILE)
 
-all: build buildman
+all: build buildman install
 
 build:
 	$(CC) $(CCARG)
-
-	echo build done | lolcat
+	echo "build done" | lolcat
 
 buildman:
 	$(PANDOC) $(PANDOCARG)
+	echo "build man from md" | lolcat
 
-	echo build man from md | lolcat
+install:
+	./main setup
 
 run: build
 	. $(CFILE)
