@@ -1,7 +1,6 @@
-mkdir ~/.config
-mkdir ~/.config/.jogpm
-mkdir ~/.config/.jogpm/.passwords
-chmod 000 ~/.config/.jogpm/.passwords
-chmod 000 ~/.config/.jogpm
+#!/usr/bin/env bash
+mkdir -p ~/.config
+mkdir -p ~/.config/.jogpm
+mkdir -p ~/.config/.jogpm/.passwords
 
 echo setup finished
