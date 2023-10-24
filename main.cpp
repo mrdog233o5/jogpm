@@ -53,7 +53,7 @@ string osys(const string& command) {
 
 void savePassword(string passwordName, string password) {
     ofstream fout;
-    string user = osys("whoami");
+    string user = getenv("USER");
     user.pop_back();
     string passwordFile = "/Users/"+user+"/"+passwordName+".passwd";
 
