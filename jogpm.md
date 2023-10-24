@@ -1,14 +1,11 @@
 # NAME
-
         jogPM - A generic simple password manager
 
 # SYNOPSIS
-
         jogpm [--help]
         jogpm [setup|gen|save|get] {options}
 
 # USAGE
-
         help    read the help page (the one that you are currently reading)
         
         setup   setup jogpm on your computer + install jogpm + install jogpm's man page
