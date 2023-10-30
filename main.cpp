@@ -54,8 +54,7 @@ string osys(const string& command) {
 void savePassword(string passwordName, string password) {
     ofstream fout;
     string user = getenv("USER");
-    user.pop_back();
-    string passwordFile = "/Users/"+user+"/"+passwordName+".passwd";
+    string passwordFile = "/Users/"+user+"/.jogpm/passwords/"+passwordName+".passwd";
 
     fout.open(passwordFile);
     fout << password;
@@ -64,14 +63,13 @@ void savePassword(string passwordName, string password) {
 
 string getPassword(string passwordName) {
     ifstream fin;
-    string user = osys("whoami");
-    user.pop_back();
-    string passwordFile = "/Users/"+user+"/"+passwordName+".passwd";
+    string user = getenv("USER");
+    string passwordFile = "/Users/"+user+"/.jogpm/passwords/"+passwordName+".passwd";
     string password;
 
     fin.open(passwordFile, ios::in);
     if (!fin.is_open()) {
-        cout << "error occored when reading password file, or password name \" " << passwordName << " \" doesnt exist" << endl << endl << endl;
+        cout << "error occored when reading password file, or password name \"" << passwordName << "\" doesnt exist" << endl << endl << endl;
         throw 1;
     }
 
@@ -91,13 +89,13 @@ void copy(string content) {
 int main(int argc, char *argv[]) {
 
     if (argc == 1) {
-        cout << "no mode given" << endl;
+        cout << "Use: 'man jogpm' OR 'jogpm help' for more information" << endl;
         return 1;
     }
     
     string mode = argv[1];
     if (mode == "help") {
-        system("cat ./guide.txt");
+        system("man jogpm");
     } else if (mode == "setup") {
         system("./setup.sh");
     } else if (mode == "gen") {
@@ -110,6 +108,12 @@ int main(int argc, char *argv[]) {
         string password;
         int tm;
         bool copyPassword = false;
+        
+        // check argument amounts
+        if (argc < 4) {
+            cout << "Usage: jogpm gen <length> <flags>" << endl << "Missing argument, run 'man jogpm' for more information" << endl;
+            return 1;
+        }
 
         // check generating flags
         for (int i = 3; i < argc; i++) {
@@ -164,7 +168,8 @@ int main(int argc, char *argv[]) {
         }
 
     } else {
-        system("cat ./guide.txt");
+        cout << "read the manual: man jogpm" << endl;
+        return 1;
     }
 
     return 0;

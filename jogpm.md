@@ -14,6 +14,8 @@
         
                 syntax: jogpm gen <password length> <flags>
 
+                provide at least one flag that isn't --cp
+
                 flags:
 
                         --char      include english characters

@@ -25,8 +25,10 @@ installStuff() {
 }
 
 setup() {
-    mkdir -p ~/.jogpm
-    mkdir -p ~/.jogpm/.passwords
+    mkdir ~/.jogpm
+    mkdir ~/.jogpm/passwords
+    sudo chmod 777 ~/.jogpm/
+    sudo chmod 777 ~/.jogpm/passwords/
     echo "files setted up" | lolcat
 }
 
