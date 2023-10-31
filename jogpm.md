@@ -14,7 +14,7 @@
         
                 syntax: jogpm gen <password length> <flags>
 
-                provide at least one flag that isn't --cp
+                must provide at least one flag that isn't --cp
 
                 flags:
 
@@ -26,7 +26,7 @@
         
         save    save the generated password
                 
-                yntax: jogpm save <password name> <password>
+                syntax: jogpm save <password name> <password>
         
         get     get saved passwords
         
