@@ -3,11 +3,11 @@ CSOURCE=$(wildcard *.cpp)
 MANFILE=jogpm.1
 MANSOURCE=$(wildcard *.md)
 CC=g++
-CCARG=$(CSOURCE) -o $(CFILE)
+CCARG=$(CSOURCE) -o $(CFILE) -lcurl
 PANDOC=pandoc
 PANDOCARG=-s $(MANSOURCE) -t man -o $(MANFILE)
 
-all: build buildman install
+all: build buildman
 
 build:
 	$(CC) $(CCARG)
