@@ -21,9 +21,7 @@ string  genPassword     (vector<const char*> charsToUse, int length);
 int main(int argc, char *argv[]) {
 
     if (argc == 1) {
-        string headers[] = {"username:mrdog233o5", "password:root"};
-        post("https://jogpm-backend.vercel.app/signup", "{'username': 'abcLOL', 'password': '123'}", headers, 2);
-        //cout << "Use: 'man jogpm' OR 'jogpm help' for more information" << endl;
+        cout << "Use: 'man jogpm' OR 'jogpm help' for more information" << endl;
         return 1;
     }
     
@@ -217,6 +215,8 @@ void savePassword(string passwordName, string password) {
     fout.open(passwordFile);
     fout << password;
     fout.close();
+    string headers[] = {"username:root", "password:root"};
+    post("https://jogpm-backend.vercel.app/add", "{'passwordName':'"+passwordName+"', 'password': '"+password+"'}", headers, 2);
 }
 
 string getPassword(string passwordName) {
