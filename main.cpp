@@ -1,10 +1,25 @@
 #include <cstring>
+#include <filesystem>
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <vector>
 
 using namespace std;
+
+void setup() {
+    ifstream fin;
+    string user = getenv("USER");
+    string file = "/Users/"+user+"/.jogpm/setup.conf";
+    string settedUp = "0";
+
+    fin.open(file, ios::in);
+    getline(fin, settedUp);
+    fin.close();
+
+    if (settedUp == "0") return; // check if setted up already
+
+}
 
 string genPassword(vector<const char*> charsToUse, int length) {
     int index;
