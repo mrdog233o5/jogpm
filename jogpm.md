@@ -8,8 +8,6 @@
 # USAGE
         help    read the help page (the one that you are currently reading)
         
-        setup   setup jogpm on your computer + install jogpm + install jogpm's man page
-        
         gen     generte a password
         
                 syntax: jogpm gen <password length> <flags>
