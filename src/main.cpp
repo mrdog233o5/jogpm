@@ -13,12 +13,11 @@ using namespace std;
 bool    usrChoice       (string question, bool defaultAns);
 string  osys            (const string& command);
 void    copy            (string content);
-void    account         (int line);
+string  account         (int line);
 
 int main(int argc, char *argv[]) {
 
     if (argc == 1) {
-        account(0);
         cout << "Use: 'man jogpm' OR 'jogpm help' for more information" << endl;
         return 1;
     }
@@ -163,12 +162,27 @@ void copy(string content) {
     system(command.c_str());
 }
 
-void account(int line) {
-    ifstream fin;
+string account(int lineNeeded) {
     string USER = getenv("USER");
-    string contents;
-    fin.open("/Users/"+USER+"/.jogpm/account.conf", ios::in);
-    fin >> contents;
-    fin.close();
-    cout << contents << endl;
+    string accountFile = "/Users/" + USER + "/.jogpm/account.conf";
+    string contents[2];
+
+    FILE *fp = fopen(accountFile.c_str(), "r");
+    if (fp == nullptr) {
+        printf("Failed to open the file.\n");
+        return "";
+    }
+    int size = 128;
+    int temp = 0;
+    char buffer[size];
+    string bufferStr;
+    while (fgets(buffer, size, fp) != nullptr) {
+        bufferStr = buffer;
+        bufferStr.erase(remove(bufferStr.begin(), bufferStr.end(), '\n'), bufferStr.end());
+        contents[temp] = bufferStr;
+        temp++;
+    }
+
+    fclose(fp);
+    return contents[lineNeeded];
 }
