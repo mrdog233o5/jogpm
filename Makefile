@@ -1,5 +1,5 @@
 CFILE=main
-CSOURCE=$(wildcard *.cpp)
+CSOURCE=./src/main.cpp
 MANFILE=jogpm.1
 MANSOURCE=$(wildcard *.md)
 CC=g++
