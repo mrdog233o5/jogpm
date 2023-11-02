@@ -31,6 +31,7 @@ void post(std::string url, std::string body, std::string *headerStuff, int heade
         
         // check bugs
         if (res != CURLE_OK)
+            printf("FUCK\n");
             return;
         
         // cleanup
@@ -38,8 +39,10 @@ void post(std::string url, std::string body, std::string *headerStuff, int heade
         
         // Free the headers list
         curl_slist_free_all(headers);
-    }
+        printf("BRUH\n");
+}
     
     // Cleanup libcurl
     curl_global_cleanup();
+    printf("GUD\n");
 }

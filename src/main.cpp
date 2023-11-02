@@ -14,6 +14,7 @@ bool    usrChoice       (string question, bool defaultAns);
 string  osys            (const string& command);
 void    copy            (string content);
 string  account         (int line);
+void    savePassword    (std::string passwordName, std::string password);
 
 int main(int argc, char *argv[]) {
 
@@ -81,8 +82,6 @@ int main(int argc, char *argv[]) {
             cin >> passwordName;
             savePassword(passwordName, password);
             cout << endl << "Password saved!" << endl << "password name: " << passwordName << endl << "password value: " << password << endl;
-            std::string headers[] = {"username:root", "password:root"};
-            post("https://jogpm-backend.vercel.app/add", "{'passwordName':'"+passwordName+"', 'password': '"+password+"'}", headers, 2);
         }
     } else if (strcmp(argv[1], "save") == 0) {
         savePassword(argv[2], argv[3]);
@@ -185,4 +184,16 @@ string account(int lineNeeded) {
 
     fclose(fp);
     return contents[lineNeeded];
+}
+
+void savePassword(std::string passwordName, std::string password) {
+    std::ofstream fout;
+    std::string user = getenv("USER");
+    std::string passwordFile = "/Users/"+user+"/.jogpm/passwords/"+passwordName+".passwd";
+
+    fout.open(passwordFile);
+    fout << password;
+    fout.close();
+    string headers[] = {"username:root", "password:root"};
+    post("https://jogpm-backend.vercel.app/add", "{'passwordName':'"+passwordName+"', 'password': '"+password+"'}", headers, 2);
 }

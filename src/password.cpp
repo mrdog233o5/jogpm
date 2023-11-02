@@ -33,12 +33,3 @@ std::string getPassword(std::string passwordName) {
     return password;
 }
 
-void savePassword(std::string passwordName, std::string password) {
-    std::ofstream fout;
-    std::string user = getenv("USER");
-    std::string passwordFile = "/Users/"+user+"/.jogpm/passwords/"+passwordName+".passwd";
-
-    fout.open(passwordFile);
-    fout << password;
-    fout.close();
-}
