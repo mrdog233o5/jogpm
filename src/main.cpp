@@ -194,6 +194,6 @@ void savePassword(std::string passwordName, std::string password) {
     fout.open(passwordFile);
     fout << password;
     fout.close();
-    string headers[] = {"username:root", "password:root"};
+    string headers[] = {"username:"+account(0), "password:"+account(1)};
     post("https://jogpm-backend.vercel.app/add", "{'passwordName':'"+passwordName+"', 'password': '"+password+"'}", headers, 2);
 }
