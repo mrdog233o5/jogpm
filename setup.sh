@@ -28,7 +28,7 @@ setup() {
     mkdir ~/.jogpm
     mkdir ~/.jogpm/passwords
     touch ~/.jogpm/account.conf
-    echo guest\n123 > ~/.jogpm/account.conf
+    install ./account.conf ~/.jogpm/account.conf
     echo "files setted up" | lolcat
 }
 

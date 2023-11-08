@@ -5,7 +5,6 @@
 #include <vector>
 #include <curl/curl.h>
 #include "./webReq.cpp"
-#include "./password.cpp"
  
 using namespace std;
 
@@ -14,7 +13,9 @@ bool    usrChoice       (string question, bool defaultAns);
 string  osys            (const string& command);
 void    copy            (string content);
 string  account         (int line);
-void    savePassword    (std::string passwordName, std::string password);
+void    savePassword    (string passwordName, string password);
+string  genPassword     (vector<const char*> charsToUse, int length);
+string  getPassword     (string passwordName);
 
 int main(int argc, char *argv[]) {
 
@@ -85,6 +86,9 @@ int main(int argc, char *argv[]) {
         }
     } else if (strcmp(argv[1], "save") == 0) {
         savePassword(argv[2], argv[3]);
+    } else if (strcmp(argv[1], "signup") == 0) {
+        string headers[] = {"username:mrdog233o5", "password:root"};
+        post("https://jogpm-backend.vercel.app/signup", "{}", headers, 2);
     } else if (strcmp(argv[1], "get") == 0) {
         string password = getPassword(argv[2]);
         cout << "password named " << argv[2] << " : " << password << endl;
@@ -186,14 +190,26 @@ string account(int lineNeeded) {
     return contents[lineNeeded];
 }
 
-void savePassword(std::string passwordName, std::string password) {
-    std::ofstream fout;
-    std::string user = getenv("USER");
-    std::string passwordFile = "/Users/"+user+"/.jogpm/passwords/"+passwordName+".passwd";
-
-    fout.open(passwordFile);
-    fout << password;
-    fout.close();
+void savePassword(string passwordName, string password) {
     string headers[] = {"username:"+account(0), "password:"+account(1)};
-    post("https://jogpm-backend.vercel.app/add", "{'passwordName':'"+passwordName+"', 'password': '"+password+"'}", headers, 2);
+    post("https://jogpm-backend.vercel.app/set", "{'passwordName':'"+passwordName+"', 'password': '"+password+"'}", headers, 2);
+}
+
+string genPassword(vector<const char*> charsToUse, int length) {
+    int index;
+    string password;
+    srand(time(0));
+
+    for (int i = 0; i < length; i++) {
+        index = rand() % charsToUse.size();
+        password += charsToUse[index][rand() % strlen(charsToUse[index])];
+    }
+    return password;
+}
+
+string getPassword(string passwordName) {
+    string password;
+    string headers[] = {"username:"+account(0), "password:"+account(1), "passwordName:"+passwordName};
+    password = get("https://jogpm-backend.vercel.app/get", headers, 3);
+    return password;
 }
