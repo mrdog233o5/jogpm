@@ -7,28 +7,75 @@
 
 import SwiftUI
 
+func isNumeric(string: String) -> Bool {
+    let digitPattern = "^[0-9]+$"
+    let regex = try! NSRegularExpression(pattern: digitPattern)
+    let range = NSRange(location: 0, length: string.utf16.count)
+    let matches = regex.matches(in: string, range: range)
+    return !matches.isEmpty
+}
+
 struct menuPage: View {
-    @State var mode: String = "idk"
+    @State var mode: String = "JogPM"
+    @State var char = true
+    @State var num = true
+    @State var syb = false
+    @State var ssyb = false
+    @State var len = ""
+    @State var output: String = ""
+    let btnWidth = 100.0
     var body: some View {
         VStack {
-            Text("JogPM")
+            Text(self.mode)
                 .font(.title)
                 .fontWeight(.bold)
                 .padding([.horizontal], 50.0)
                 .padding([.vertical], 5.0)
-            VStack {
-                let btnWidth = 100.0
-                let btnNames = ["Generate", "Save", "Get"]
-                ForEach(btnNames, id: \.self) { stuff in
-                    Button(action: {
-                        self.mode=stuff
-                    }, label : {
-                        Text(stuff).frame(width: btnWidth)
+            if (self.mode == "JogPM") {
+                VStack {
+                    let btnNames = ["Create", "Save", "Get"]
+                    ForEach(btnNames, id: \.self) { stuff in
+                        Button(action: {
+                            self.mode=stuff
+                        }, label : {
+                            Text(stuff).frame(width: btnWidth)
+                        }
+                        ).frame(width: btnWidth)
                     }
+                }
+            } else if (self.mode == "Create") {
+                VStack {
+                    Toggle(isOn: $char) {
+                        Text("use characters").frame(width: btnWidth)
+                    }
+                    .toggleStyle(.checkbox)
+                    Toggle(isOn: $num) {
+                        Text("use numbers").frame(width: btnWidth)
+                    }
+                    .toggleStyle(.checkbox)
+                    Toggle(isOn: $syb) {
+                        Text("use symbols").frame(width: btnWidth)
+                    }
+                    .toggleStyle(.checkbox)
+                    TextField(
+                        "Length, <100 and >0",
+                        text: $len
                     ).frame(width: btnWidth)
                 }
-            } .frame(height: 80)
-        }
+                Button(action: {
+                    if (isNumeric(string: len)) {
+                        self.output = "password"
+                    } else {
+                        self.output = "invaid length"
+                    }
+                }, label : {
+                    Text("Generate!").frame(width: btnWidth)
+                }
+                ).frame(width: btnWidth)
+                
+                Text(output)
+            }
+        }.padding()
     }
 }
 
