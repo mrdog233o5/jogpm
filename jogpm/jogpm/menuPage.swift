@@ -63,7 +63,7 @@ struct menuPage: View {
                     ).frame(width: btnWidth)
                 }
                 Button(action: {
-                    if (isNumeric(string: len)) {
+                    if (isNumeric(string: len) && (Int(len) ?? 0) > 0 && (Int(len) ?? 0) < 100) {
                         self.output = "password"
                     } else {
                         self.output = "invaid length"
