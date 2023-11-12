@@ -8,11 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		9FC15BF02B0093500045608E /* jogpmApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC15BEF2B0093500045608E /* jogpmApp.swift */; };
-		9FC15BF22B0093500045608E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC15BF12B0093500045608E /* ContentView.swift */; };
+		9FC15BF22B0093500045608E /* menuPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC15BF12B0093500045608E /* menuPage.swift */; };
 		9FC15BF42B0093580045608E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FC15BF32B0093580045608E /* Assets.xcassets */; };
 		9FC15BF72B0093580045608E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FC15BF62B0093580045608E /* Preview Assets.xcassets */; };
 		9FC15C1B2B00A1590045608E /* ApplicationMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC15C1A2B00A1590045608E /* ApplicationMenu.swift */; };
-		9FC15C1E2B00AE2A0045608E /* jogpmMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC15C1D2B00AE2A0045608E /* jogpmMode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +34,7 @@
 /* Begin PBXFileReference section */
 		9FC15BEC2B0093500045608E /* jogpm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jogpm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FC15BEF2B0093500045608E /* jogpmApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jogpmApp.swift; sourceTree = "<group>"; };
-		9FC15BF12B0093500045608E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9FC15BF12B0093500045608E /* menuPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menuPage.swift; sourceTree = "<group>"; };
 		9FC15BF32B0093580045608E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9FC15BF62B0093580045608E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9FC15BF82B0093580045608E /* jogpm.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = jogpm.entitlements; sourceTree = "<group>"; };
@@ -43,7 +42,6 @@
 		9FC15C072B0093590045608E /* jogpmUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jogpmUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FC15C1A2B00A1590045608E /* ApplicationMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationMenu.swift; sourceTree = "<group>"; };
 		9FC15C1C2B00A6040045608E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		9FC15C1D2B00AE2A0045608E /* jogpmMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jogpmMode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +92,7 @@
 			children = (
 				9FC15C1C2B00A6040045608E /* Info.plist */,
 				9FC15BEF2B0093500045608E /* jogpmApp.swift */,
-				9FC15BF12B0093500045608E /* ContentView.swift */,
-				9FC15C1D2B00AE2A0045608E /* jogpmMode.swift */,
+				9FC15BF12B0093500045608E /* menuPage.swift */,
 				9FC15C1A2B00A1590045608E /* ApplicationMenu.swift */,
 				9FC15BF32B0093580045608E /* Assets.xcassets */,
 				9FC15BF82B0093580045608E /* jogpm.entitlements */,
@@ -242,8 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FC15C1E2B00AE2A0045608E /* jogpmMode.swift in Sources */,
-				9FC15BF22B0093500045608E /* ContentView.swift in Sources */,
+				9FC15BF22B0093500045608E /* menuPage.swift in Sources */,
 				9FC15C1B2B00A1590045608E /* ApplicationMenu.swift in Sources */,
 				9FC15BF02B0093500045608E /* jogpmApp.swift in Sources */,
 			);
