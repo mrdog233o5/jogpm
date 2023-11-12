@@ -47,6 +47,7 @@
 		9FC15C0B2B0093590045608E /* jogpmUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jogpmUITests.swift; sourceTree = "<group>"; };
 		9FC15C0D2B0093590045608E /* jogpmUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jogpmUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9FC15C1A2B00A1590045608E /* ApplicationMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationMenu.swift; sourceTree = "<group>"; };
+		9FC15C1C2B00A6040045608E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +98,7 @@
 		9FC15BEE2B0093500045608E /* jogpm */ = {
 			isa = PBXGroup;
 			children = (
+				9FC15C1C2B00A6040045608E /* Info.plist */,
 				9FC15BEF2B0093500045608E /* jogpmApp.swift */,
 				9FC15BF12B0093500045608E /* ContentView.swift */,
 				9FC15C1A2B00A1590045608E /* ApplicationMenu.swift */,
@@ -433,6 +435,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = jogpm/Info.plist;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -460,6 +464,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = jogpm/Info.plist;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
