@@ -58,7 +58,7 @@ struct menuPage: View {
                     }
                     .toggleStyle(.checkbox)
                     TextField(
-                        "Length, <100 and >0",
+                        "Length",
                         text: $len
                     ).frame(width: btnWidth)
                 }
