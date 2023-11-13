@@ -44,6 +44,14 @@ struct menuPage: View {
                     }
                 }
             } else if (self.mode == "Create") {
+                HStack {
+                        Button(action: {
+                            self.mode="JogPM"
+                        }, label : {
+                            Text("Back").frame(width: btnWidth)
+                        }
+                        ).frame(width: btnWidth)
+                }
                 VStack {
                     Toggle(isOn: $char) {
                         Text("use characters").frame(width: btnWidth)
@@ -64,7 +72,7 @@ struct menuPage: View {
                 }
                 Button(action: {
                     if (isNumeric(string: len) && (Int(len) ?? 0) > 0 && (Int(len) ?? 0) < 100) {
-                        self.output = "password"
+                        self.output = "passwordasdfasdfasdfasdfasdf"
                     } else {
                         self.output = "invaid length"
                     }
@@ -74,11 +82,18 @@ struct menuPage: View {
                 ).frame(width: btnWidth)
                 
                 Text(output)
+                    .frame(width: btnWidth, height: btnWidth)
+                    .background(.fill)
+                    .padding(3)
+                Button(action: {
+                    jogpm().copyStuff(output)
+                }, label : {
+                    Text("Copy").frame(width: btnWidth)
+                })
             }
         }.padding()
     }
 }
-
 
 struct menuPage_Previews: PreviewProvider {
     static var previews: some View {
