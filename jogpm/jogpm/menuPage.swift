@@ -31,6 +31,13 @@ struct menuPage: View {
                 .fontWeight(.bold)
                 .padding([.horizontal], 50.0)
                 .padding([.vertical], 5.0)
+            if (self.mode != "JogPM") {
+                Button(action: {
+                    self.mode="JogPM"
+                }, label : {
+                    Text("Back").frame(width: btnWidth)
+                }).frame(width: btnWidth)
+            }
             if (self.mode == "JogPM") {
                 VStack {
                     let btnNames = ["Create", "Save", "Get"]
@@ -44,14 +51,6 @@ struct menuPage: View {
                     }
                 }
             } else if (self.mode == "Create") {
-                HStack {
-                        Button(action: {
-                            self.mode="JogPM"
-                        }, label : {
-                            Text("Back").frame(width: btnWidth)
-                        }
-                        ).frame(width: btnWidth)
-                }
                 VStack {
                     Toggle(isOn: $char) {
                         Text("use characters").frame(width: btnWidth)
