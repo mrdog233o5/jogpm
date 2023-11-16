@@ -23,7 +23,7 @@ struct menuPage: View {
     @State var syb = false
     @State var ssyb = false
     @State var len = ""
-    @State var output: String = ""
+    @State var output = ""
     let btnWidth = 100.0
     var body: some View {
         VStack {
@@ -72,7 +72,9 @@ struct menuPage: View {
                 }
                 Button(action: {
                     if (isNumeric(string: len) && (Int(len) ?? 0) > 0 && (Int(len) ?? 0) < 100) {
-                        self.output = String(cString: test())
+                        let passwordLength:Int32 = Int32(len) ?? 0
+                        self.output = ""
+                        self.output = String(cString: gen(passwordLength, char, num, syb))
                     } else {
                         self.output = "invaid length"
                     }
