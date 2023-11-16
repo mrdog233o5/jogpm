@@ -19,7 +19,6 @@
                         --char      include english characters
                         --num       include digits
                         --syb       include symbols
-                        --sybSpec   include special symbols
                         --cp        copy the generated password
         
         save    save the generated password
