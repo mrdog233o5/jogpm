@@ -30,8 +30,7 @@ int main(int argc, char *argv[]) {
     } else if (mode == "gen") {
         const char* chars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
         const char* nums = "1234567890";
-        const char* symbols = "_.-";
-        const char* symbolsSpecial = "~!@#$%^&*()_+`-={}|[]\\:;\"',<.>/?";
+        const char* symbols = "!@#$%^&*-_+=";
         vector<const char*> charsToUse;
         bool passwordAccepted = 0;
         string password;
@@ -53,8 +52,6 @@ int main(int argc, char *argv[]) {
                 charsToUse.push_back(nums);
             if (strcmp(argv[i], "--syb") == 0)
                 charsToUse.push_back(symbols);
-            if (strcmp(argv[i], "--sybSpec") == 0)
-                charsToUse.push_back(symbolsSpecial);
             if (strcmp(argv[i], "--cp") == 0)
                 copyPassword = true;
         }
@@ -87,7 +84,7 @@ int main(int argc, char *argv[]) {
     } else if (strcmp(argv[1], "save") == 0) {
         savePassword(argv[2], argv[3]);
     } else if (strcmp(argv[1], "signup") == 0) {
-        string headers[] = {"username:mrdog233o5", "password:root"};
+        string headers[] = {"username:"+account(0), "password:"+account(1)};
         post("https://jogpm-backend.vercel.app/signup", "{}", headers, 2);
     } else if (strcmp(argv[1], "get") == 0) {
         string password = getPassword(argv[2]);

@@ -1,7 +1,7 @@
 CFILE=main
 CFILE2=jogpmExec
 CSOURCE=./src/main.cpp
-CSOURCE2=./src/jogpm.cpp
+CSOURCE2=./src/jogpm.c
 MANFILE=jogpm.1
 MANSOURCE=$(wildcard *.md)
 CC=g++
@@ -15,7 +15,7 @@ all: build buildman
 build:
 	$(CC) $(CCARG)
 	$(CC) $(CCARG2)
-	cp -f ./jogpmExec ./jogpm/jogpm/jogpmExec
+	cp -f ./src/jogpm.c ./jogpm/jogpm/jogpm.c
 	echo "build done" | lolcat
 
 buildman:
