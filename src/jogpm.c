@@ -64,6 +64,5 @@ char* genPassword(char* charsToUse, int ctuLen, int length) {
         index = rand() % ctuLen;
         strncat(password, &charsToUse[index], 1);
     }
-    printf("%s", password);
     return password;
 }
