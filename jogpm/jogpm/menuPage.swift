@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 func isNumeric(string: String) -> Bool {
     let digitPattern = "^[0-9]+$"
     let regex = try! NSRegularExpression(pattern: digitPattern)
@@ -71,7 +72,7 @@ struct menuPage: View {
                 }
                 Button(action: {
                     if (isNumeric(string: len) && (Int(len) ?? 0) > 0 && (Int(len) ?? 0) < 100) {
-                        self.output = "passwordasdfasdfasdfasdfasdf"
+                        self.output = String(cString: test())
                     } else {
                         self.output = "invaid length"
                     }
