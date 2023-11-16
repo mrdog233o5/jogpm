@@ -5,22 +5,24 @@
 #include <stdlib.h>
  
 
-char*   account         (int line);
 char*   genPassword     (char* charsToUse, int ctuLen, int length);
-void   gen             (int len, bool Char, bool Num, bool Syb);
+char*   gen             (int length, bool Char, bool Num, bool Syb);
 
 int main(int argc, char *argv[])
 {
+    printf("%s", gen(8, true, true, false));
     return 0;
 }
 
-void gen(int len, bool Char, bool Num, bool Syb) {
+char* gen(int length, bool Char, bool Num, bool Syb) {
 
     const char* chars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
     const char* nums = "1234567890";
     const char* symbols = "!@#$%^&*-_+=";
-    char charsToUse[100];
-    char password[100];
+    char charsToUse[100] = "";
+    static char password[100] = "";
+    strcpy(password, "");
+    strcpy(charsToUse, "");
     
     // check generating flags
     if (Char == true)
@@ -32,14 +34,14 @@ void gen(int len, bool Char, bool Num, bool Syb) {
     if (Syb == true)
         strcat(charsToUse, symbols);
 
-    strcpy(password, genPassword(charsToUse, strlen(charsToUse), len));
-    printf("%s", password);
-
+    strcpy(password, genPassword(charsToUse, strlen(charsToUse), length));
+    return password;
 }
 
 char* genPassword(char* charsToUse, int ctuLen, int length) {
     int index;
     char* password;
+    strcpy(password, "");
     srand(time(0));
 
     for (int i = 0; i < length; i++) {
