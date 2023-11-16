@@ -72,7 +72,8 @@ struct menuPage: View {
                 }
                 Button(action: {
                     if (isNumeric(string: len) && (Int(len) ?? 0) > 0 && (Int(len) ?? 0) < 100) {
-                        let passwordLength:Int32 = Int32(len) ?? 0
+                        let passwordLength = Int32(len) ?? 0
+                        print("test")
                         self.output = ""
                         self.output = String(cString: gen(passwordLength, char, num, syb))
                     } else {

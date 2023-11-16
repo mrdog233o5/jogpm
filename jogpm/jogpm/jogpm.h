@@ -1,6 +1,6 @@
 //
 //  jogpm.h
-//  test
+//  jogpm
 //
 //  Created by mrdog233o5 on 16/11/2023.
 //
@@ -15,11 +15,10 @@
 #include <stdlib.h>
  
 
-char*   account         (int line);
 char*   genPassword     (char* charsToUse, int ctuLen, int length);
-char*   gen             (int len, bool Char, bool Num, bool Syb);
+char*   gen             (int length, bool Char, bool Num, bool Syb);
 
-char* gen(int len, bool Char, bool Num, bool Syb) {
+char* gen(int length, bool Char, bool Num, bool Syb) {
 
     const char* chars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
     const char* nums = "1234567890";
@@ -39,8 +38,7 @@ char* gen(int len, bool Char, bool Num, bool Syb) {
     if (Syb == true)
         strcat(charsToUse, symbols);
 
-    strcpy(password, genPassword(charsToUse, strlen(charsToUse), len));
-    printf("%s", password);
+    strcpy(password, genPassword(charsToUse, strlen(charsToUse), length));
     return password;
 }
 
