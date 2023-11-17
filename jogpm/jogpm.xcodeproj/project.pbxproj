@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9F91C4FB2B027D5000E91FDC /* jogpmStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F91C4FA2B027D5000E91FDC /* jogpmStruct.swift */; };
+		9F9E01C92B07BC670061A16B /* libcurl.4.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F9E01C82B07BC670061A16B /* libcurl.4.tbd */; settings = {ATTRIBUTES = (Required, ); }; };
 		9FC15BF02B0093500045608E /* jogpmApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC15BEF2B0093500045608E /* jogpmApp.swift */; };
 		9FC15BF22B0093500045608E /* menuPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC15BF12B0093500045608E /* menuPage.swift */; };
 		9FC15BF42B0093580045608E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FC15BF32B0093580045608E /* Assets.xcassets */; };
@@ -36,6 +37,8 @@
 		9F4281B12B05C1B200AC4860 /* jogpm-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "jogpm-Bridging-Header.h"; sourceTree = "<group>"; };
 		9F4281B22B05C1C900AC4860 /* jogpm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jogpm.h; sourceTree = "<group>"; };
 		9F91C4FA2B027D5000E91FDC /* jogpmStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jogpmStruct.swift; sourceTree = "<group>"; };
+		9F9E01C62B07A6670061A16B /* libcurl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.tbd; path = usr/lib/libcurl.tbd; sourceTree = SDKROOT; };
+		9F9E01C82B07BC670061A16B /* libcurl.4.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.4.tbd; path = usr/lib/libcurl.4.tbd; sourceTree = SDKROOT; };
 		9FC15BEC2B0093500045608E /* jogpm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jogpm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FC15BEF2B0093500045608E /* jogpmApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jogpmApp.swift; sourceTree = "<group>"; };
 		9FC15BF12B0093500045608E /* menuPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menuPage.swift; sourceTree = "<group>"; };
@@ -53,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F9E01C92B07BC670061A16B /* libcurl.4.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,11 +77,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9F9E01C52B07A61F0061A16B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9F9E01C82B07BC670061A16B /* libcurl.4.tbd */,
+				9F9E01C62B07A6670061A16B /* libcurl.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9FC15BE32B0093500045608E = {
 			isa = PBXGroup;
 			children = (
 				9FC15BEE2B0093500045608E /* jogpm */,
 				9FC15BED2B0093500045608E /* Products */,
+				9F9E01C52B07A61F0061A16B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

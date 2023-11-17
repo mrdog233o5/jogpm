@@ -52,7 +52,7 @@ struct menuPage: View {
                         ).frame(width: btnWidth)
                             .padding(2)
                     }
-                }
+                }.padding(10)
             } else if (self.mode == "Create") {
                 VStack {
                     Toggle(isOn: $char) {
@@ -106,6 +106,18 @@ struct menuPage: View {
                 )
                     .frame(width: btnWidth)
                 Button(action: {
+
+                    let reqUrl: UnsafePointer<CChar> = ("http://localhost:3000/set" as NSString).utf8String!
+                    let reqBody = "{'passwordName':'zoom', 'password':'abc123'}"
+                    let reqHeadersSwiftStr = ["username:mrdog233o5", "password:root"]
+                    let reqHeadersPtr = reqHeadersSwiftStr.map { $0.utf8CString }
+
+                    var reqHeadersUnsafePointers: [UnsafePointer<CChar>?] = reqHeadersPtr.map { $0.withUnsafeBufferPointer { $0.baseAddress } }
+
+                    let reqHeaders = UnsafeMutablePointer<UnsafePointer<CChar>?>.allocate(capacity: reqHeadersUnsafePointers.count)
+                    reqHeaders.initialize(from: &reqHeadersUnsafePointers, count: reqHeadersUnsafePointers.count)
+
+                    reqPost(reqUrl, reqBody, reqHeaders, 2)
                 }, label : {
                     Text("Save").frame(width: btnWidth)
                 })
