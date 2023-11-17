@@ -107,8 +107,8 @@ struct menuPage: View {
                     .frame(width: btnWidth)
                 Button(action: {
 
-                    let reqUrl: UnsafePointer<CChar> = ("http://localhost:3000/set" as NSString).utf8String!
-                    let reqBody = "{'passwordName':'zoom', 'password':'abc123'}"
+                    let reqUrl: UnsafePointer<CChar> = ("https://jogpm-backend.vercel.app/set" as NSString).utf8String!
+                    let reqBody = "{'passwordName':'" + passwdName + "', 'password':'" + passwd + "'}"
                     let reqHeadersSwiftStr = ["username:mrdog233o5", "password:root"]
                     let reqHeadersPtr = reqHeadersSwiftStr.map { $0.utf8CString }
 
