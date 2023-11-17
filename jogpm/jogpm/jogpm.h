@@ -10,7 +10,6 @@
 #include <stdbool.h>
 #include <time.h>
 #include <stdlib.h>
- 
 
 char*   genPassword     (char* charsToUse, int ctuLen, int length);
 char*   gen             (int length, bool Char, bool Num, bool Syb);

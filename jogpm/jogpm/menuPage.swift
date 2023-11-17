@@ -21,9 +21,11 @@ struct menuPage: View {
     @State var char = true
     @State var num = true
     @State var syb = false
-    @State var len = ""
+    @State var length = ""
+    @State var passwdName = ""
+    @State var passwd = ""
     @State var output = ""
-    let btnWidth = 100.0
+    let btnWidth = 140.0
     var body: some View {
         VStack {
             Text(self.mode)
@@ -45,9 +47,10 @@ struct menuPage: View {
                         Button(action: {
                             self.mode=stuff
                         }, label : {
-                            Text(stuff).frame(width: btnWidth)
+                            Text(stuff).frame(width: btnWidth, height: btnWidth*0.3)
                         }
                         ).frame(width: btnWidth)
+                            .padding(2)
                     }
                 }
             } else if (self.mode == "Create") {
@@ -66,30 +69,45 @@ struct menuPage: View {
                     .toggleStyle(.checkbox)
                     TextField(
                         "Length",
-                        text: $len
+                        text: $length
                     ).frame(width: btnWidth)
                 }
                 Button(action: {
-                    if (isNumeric(string: len) && (Int(len)!) > 0 && (Int(len)!) < 100) {
-                        let passwordLength = Int32(len)!
+                    if (isNumeric(string: length) && (Int(length)!) > 0 && (Int(length)!) < 100) {
+                        let passwordLength = Int32(length)!
                         self.output = ""
                         self.output = String(cString: gen(passwordLength, char, num, syb), encoding: .utf8)!
                     } else {
                         self.output = "invaid length"
                     }
                 }, label : {
-                    Text("Generate!").frame(width: btnWidth)
+                    Text("Generate").frame(width: btnWidth)
                 }
                 ).frame(width: btnWidth)
                 
                 Text(output)
-                    .frame(width: btnWidth, height: btnWidth)
+                    .frame(width: btnWidth, height: btnWidth*0.8)
                     .background(.fill)
-                    .padding(3)
+                    .cornerRadius(10.0)
                 Button(action: {
                     jogpm().copyStuff(output)
                 }, label : {
                     Text("Copy").frame(width: btnWidth)
+                })
+            } else if (self.mode == "Save") {
+                TextField(
+                    "Passwd name",
+                    text: $passwdName
+                )
+                    .frame(width: btnWidth)
+                TextField(
+                    "Passwd",
+                    text: $passwd
+                )
+                    .frame(width: btnWidth)
+                Button(action: {
+                }, label : {
+                    Text("Save").frame(width: btnWidth)
                 })
             }
         }.padding()
@@ -98,6 +116,6 @@ struct menuPage: View {
 
 struct menuPage_Previews: PreviewProvider {
     static var previews: some View {
-        menuPage()
+        menuPage().frame(width: 225, height: 450)
     }
 }
