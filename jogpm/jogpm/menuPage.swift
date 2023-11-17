@@ -21,7 +21,6 @@ struct menuPage: View {
     @State var char = true
     @State var num = true
     @State var syb = false
-    @State var ssyb = false
     @State var len = ""
     @State var output = ""
     let btnWidth = 100.0
@@ -71,10 +70,10 @@ struct menuPage: View {
                     ).frame(width: btnWidth)
                 }
                 Button(action: {
-                    if (isNumeric(string: len) && (Int(len) ?? 0) > 0 && (Int(len) ?? 0) < 100) {
-                        let passwordLength = Int32(len) ?? 0
+                    if (isNumeric(string: len) && (Int(len)!) > 0 && (Int(len)!) < 100) {
+                        let passwordLength = Int32(len)!
                         self.output = ""
-                        self.output = String(cString: gen(passwordLength, char, num, syb))
+                        self.output = String(cString: gen(passwordLength, char, num, syb), encoding: .utf8)!
                     } else {
                         self.output = "invaid length"
                     }
