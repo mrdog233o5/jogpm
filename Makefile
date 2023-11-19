@@ -11,7 +11,6 @@ all: build buildman
 
 build:
 	$(CC) $(CCARG)
-	cp -f ./src/jogpm.c ./jogpm/jogpm/jogpm.c
 	echo "build done" | lolcat
 
 buildman:
