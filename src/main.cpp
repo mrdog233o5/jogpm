@@ -8,7 +8,6 @@
  
 using namespace std;
 
-
 bool    usrChoice       (string question, bool defaultAns);
 string  osys            (const string& command);
 void    copy            (string content);
