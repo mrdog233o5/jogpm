@@ -29,6 +29,8 @@ struct menuPage: View {
     @State var passwdGet = ""
     let btnWidth = 140.0
     let radius = 8.0
+    var username = "mrdog233o5"
+    var password = "root"
     var body: some View {
         VStack {
             Text(self.mode)
@@ -121,7 +123,7 @@ struct menuPage: View {
 
                     let reqUrl: UnsafePointer<CChar> = ("https://jogpm-backend.vercel.app/set" as NSString).utf8String!
                     let reqBody = "{'passwordName':'" + passwdName + "', 'password':'" + passwd + "'}"
-                    let reqHeadersSwiftStr = ["username:mrdog233o5", "password:root"]
+                    let reqHeadersSwiftStr = ["username:\(username)", "password:\(password)"]
                     let reqHeadersPtr = reqHeadersSwiftStr.map { $0.utf8CString }
                     var reqHeadersUnsafePointers: [UnsafePointer<CChar>?] = reqHeadersPtr.map { $0.withUnsafeBufferPointer { $0.baseAddress } }
                     let reqHeaders = UnsafeMutablePointer<UnsafePointer<CChar>?>.allocate(capacity: reqHeadersUnsafePointers.count)
@@ -144,7 +146,7 @@ struct menuPage: View {
                 Button(action: {
 
                     let reqUrl: UnsafePointer<CChar> = ("https://jogpm-backend.vercel.app/get" as NSString).utf8String!
-                    let reqHeadersSwiftStr = ["username:mrdog233o5", "password:root", "passwordName:"+passwdNameGet]
+                    let reqHeadersSwiftStr = ["username:\(username)", "password:\(password)", "passwordName:"+passwdNameGet]
                     let reqHeadersPtr = reqHeadersSwiftStr.map { strdup($0) }
                     var reqHeadersUnsafePointers: [UnsafeMutablePointer<CChar>?] = reqHeadersPtr.map { UnsafeMutablePointer(mutating: $0) }
                     let reqHeaders = UnsafeMutablePointer<UnsafeMutablePointer<CChar>?>.allocate(capacity: reqHeadersUnsafePointers.count)
