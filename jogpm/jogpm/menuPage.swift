@@ -38,14 +38,18 @@ struct menuPage: View {
                 .padding([.vertical], 5.0)
             if (self.mode != "JogPM") {
                 Button(action: {
-                    self.mode="JogPM"
+                    if (self.mode == "Signup" || self.mode == "Signin" || self.mode == "Change Passwd") {
+                        self.mode = "Account"
+                    } else {
+                        self.mode="JogPM"
+                    }
                 }, label : {
                     Text("Back").frame(width: btnWidth)
                 }).frame(width: btnWidth)
             }
             if (self.mode == "JogPM") {
                 VStack {
-                    let btnNames = ["Create", "Save", "Get"]
+                    let btnNames = ["Create", "Save", "Get", "Account"]
                     ForEach(btnNames, id: \.self) { stuff in
                         Button(action: {
                             self.mode=stuff
@@ -60,23 +64,20 @@ struct menuPage: View {
                 VStack {
                     Toggle(isOn: $char) {
                         Text("use characters").frame(width: btnWidth)
-                    }
-                    .toggleStyle(.checkbox)
+                    }.toggleStyle(.checkbox)
                     Toggle(isOn: $num) {
                         Text("use numbers").frame(width: btnWidth)
-                    }
-                    .toggleStyle(.checkbox)
+                    }.toggleStyle(.checkbox)
                     Toggle(isOn: $syb) {
                         Text("use symbols").frame(width: btnWidth)
-                    }
-                    .toggleStyle(.checkbox)
+                    }.toggleStyle(.checkbox)
                     TextField(
                         "Length",
                         text: $length
                     )
-                    .frame(width: btnWidth)
-                    .background(.fill)
-                    .cornerRadius(radius)
+                        .frame(width: btnWidth)
+                        .background(.fill)
+                        .cornerRadius(radius)
                 }
                 Button(action: {
                     if (isNumeric(string: length) && (Int(length)!) > 0 && (Int(length)!) < 100) {
@@ -106,16 +107,16 @@ struct menuPage: View {
                     "Passwd name",
                     text: $passwdName
                 )
-                .frame(width: btnWidth)
-                .background(.fill)
-                .cornerRadius(radius)
+                    .frame(width: btnWidth)
+                    .background(.fill)
+                    .cornerRadius(radius)
                 TextField(
                     "Passwd",
                     text: $passwd
                 )
-                .frame(width: btnWidth)
-                .background(.fill)
-                .cornerRadius(radius)
+                    .frame(width: btnWidth)
+                    .background(.fill)
+                    .cornerRadius(radius)
                 Button(action: {
 
                     let reqUrl: UnsafePointer<CChar> = ("https://jogpm-backend.vercel.app/set" as NSString).utf8String!
@@ -136,9 +137,9 @@ struct menuPage: View {
                     "Passwd name",
                     text: $passwdNameGet
                 )
-                .frame(width: btnWidth)
-                .background(.fill)
-                .cornerRadius(radius)
+                    .frame(width: btnWidth)
+                    .background(.fill)
+                    .cornerRadius(radius)
 
                 Button(action: {
 
@@ -162,6 +163,86 @@ struct menuPage: View {
                     jogpm().copyStuff(passwdGet)
                 }, label : {
                     Text("Copy").frame(width: btnWidth)
+                })
+            } else if (self.mode == "Account") {
+                VStack {
+                    let btnNames = ["Signup", "Signin", "Change Passwd"]
+                    ForEach(btnNames, id: \.self) { stuff in
+                        Button(action: {
+                            self.mode=stuff
+                        }, label : {
+                            Text(stuff).frame(width: btnWidth, height: btnWidth*0.3)
+                        }
+                        ).frame(width: btnWidth)
+                            .padding(2)
+                    }
+                }.padding(10)
+            } else if (self.mode == "Signup") {
+                TextField(
+                    "Username",
+                    text: $passwdNameGet
+                )
+                    .frame(width: btnWidth)
+                    .background(.fill)
+                    .cornerRadius(radius)
+                TextField(
+                    "Password",
+                    text: $passwdNameGet
+                )
+                    .frame(width: btnWidth)
+                    .background(.fill)
+                    .cornerRadius(radius)
+                Button(action: {
+                    // signup
+                }, label : {
+                    Text("Signup").frame(width: btnWidth)
+                })
+            } else if (self.mode == "Signin") {
+                TextField(
+                    "Username",
+                    text: $passwdNameGet
+                )
+                    .frame(width: btnWidth)
+                    .background(.fill)
+                    .cornerRadius(radius)
+                TextField(
+                    "Password",
+                    text: $passwdNameGet
+                )
+                    .frame(width: btnWidth)
+                    .background(.fill)
+                    .cornerRadius(radius)
+                Button(action: {
+                    // sign in
+                }, label : {
+                    Text("Signin").frame(width: btnWidth)
+                })
+            } else if (self.mode == "Change Passwd") {
+                TextField(
+                    "Old Passwd",
+                    text: $passwdNameGet
+                )
+                    .frame(width: btnWidth)
+                    .background(.fill)
+                    .cornerRadius(radius)
+                TextField(
+                    "New Passwd",
+                    text: $passwdNameGet
+                )
+                    .frame(width: btnWidth)
+                    .background(.fill)
+                    .cornerRadius(radius)
+                TextField(
+                    "Verify New Passwd",
+                    text: $passwdNameGet
+                )
+                    .frame(width: btnWidth)
+                    .background(.fill)
+                    .cornerRadius(radius)
+                Button(action: {
+                    // change password
+                }, label : {
+                    Text("Change").frame(width: btnWidth)
                 })
             }
         }.padding()
