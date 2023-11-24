@@ -28,6 +28,7 @@ struct menuPage: View {
     @State var passwdNameGet = ""
     @State var passwdGet = ""
     let btnWidth = 140.0
+    let radius = 8.0
     var body: some View {
         VStack {
             Text(self.mode)
@@ -72,7 +73,10 @@ struct menuPage: View {
                     TextField(
                         "Length",
                         text: $length
-                    ).frame(width: btnWidth)
+                    )
+                    .frame(width: btnWidth)
+                    .background(.fill)
+                    .cornerRadius(radius)
                 }
                 Button(action: {
                     if (isNumeric(string: length) && (Int(length)!) > 0 && (Int(length)!) < 100) {
@@ -91,7 +95,7 @@ struct menuPage: View {
                 Text(output)
                     .frame(width: btnWidth, height: btnWidth*0.8)
                     .background(.fill)
-                    .cornerRadius(10.0)
+                    .cornerRadius(radius)
                 Button(action: {
                     jogpm().copyStuff(output)
                 }, label : {
@@ -102,12 +106,16 @@ struct menuPage: View {
                     "Passwd name",
                     text: $passwdName
                 )
-                    .frame(width: btnWidth)
+                .frame(width: btnWidth)
+                .background(.fill)
+                .cornerRadius(radius)
                 TextField(
                     "Passwd",
                     text: $passwd
                 )
-                    .frame(width: btnWidth)
+                .frame(width: btnWidth)
+                .background(.fill)
+                .cornerRadius(radius)
                 Button(action: {
 
                     let reqUrl: UnsafePointer<CChar> = ("https://jogpm-backend.vercel.app/set" as NSString).utf8String!
@@ -128,11 +136,15 @@ struct menuPage: View {
                     "Passwd name",
                     text: $passwdNameGet
                 )
+                .frame(width: btnWidth)
+                .background(.fill)
+                .cornerRadius(radius)
+
                 Button(action: {
 
                     let reqUrl: UnsafePointer<CChar> = ("https://jogpm-backend.vercel.app/get" as NSString).utf8String!
                     let reqHeadersSwiftStr = ["username:mrdog233o5", "password:root", "passwordName:"+passwdNameGet]
-                    var reqHeadersPtr = reqHeadersSwiftStr.map { strdup($0) }
+                    let reqHeadersPtr = reqHeadersSwiftStr.map { strdup($0) }
                     var reqHeadersUnsafePointers: [UnsafeMutablePointer<CChar>?] = reqHeadersPtr.map { UnsafeMutablePointer(mutating: $0) }
                     let reqHeaders = UnsafeMutablePointer<UnsafeMutablePointer<CChar>?>.allocate(capacity: reqHeadersUnsafePointers.count)
                     reqHeaders.initialize(from: &reqHeadersUnsafePointers, count: reqHeadersUnsafePointers.count)
@@ -142,10 +154,10 @@ struct menuPage: View {
                 }, label : {
                     Text("Get").frame(width: btnWidth)
                 })
-                TextField(
-                    "",
-                    text: $passwdGet
-                )
+                Text(passwdGet)
+                    .frame(width: btnWidth, height: btnWidth*0.8)
+                    .background(.fill)
+                    .cornerRadius(radius)
                 Button(action: {
                     jogpm().copyStuff(passwdGet)
                 }, label : {
