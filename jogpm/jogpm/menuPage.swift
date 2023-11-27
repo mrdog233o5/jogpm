@@ -29,8 +29,6 @@ struct menuPage: View {
     @State var passwdGet = ""
     let btnWidth = 140.0
     let radius = 8.0
-    var username = "mrdog233o5"
-    var password = "root"
     var body: some View {
         VStack {
             Text(self.mode)
@@ -100,7 +98,7 @@ struct menuPage: View {
                     .background(.fill)
                     .cornerRadius(radius)
                 Button(action: {
-                    jogpm().copyStuff(output)
+                    copyStuff(output)
                 }, label : {
                     Text("Copy").frame(width: btnWidth)
                 })
@@ -120,7 +118,8 @@ struct menuPage: View {
                     .background(.fill)
                     .cornerRadius(radius)
                 Button(action: {
-
+                    var username = account(0)
+                    var password = account(1)
                     let reqUrl: UnsafePointer<CChar> = ("https://jogpm-backend.vercel.app/set" as NSString).utf8String!
                     let reqBody = "{'passwordName':'" + passwdName + "', 'password':'" + passwd + "'}"
                     let reqHeadersSwiftStr = ["username:\(username)", "password:\(password)"]
@@ -144,7 +143,8 @@ struct menuPage: View {
                     .cornerRadius(radius)
 
                 Button(action: {
-
+                    var username = account(0)
+                    var password = account(1)
                     let reqUrl: UnsafePointer<CChar> = ("https://jogpm-backend.vercel.app/get" as NSString).utf8String!
                     let reqHeadersSwiftStr = ["username:\(username)", "password:\(password)", "passwordName:"+passwdNameGet]
                     let reqHeadersPtr = reqHeadersSwiftStr.map { strdup($0) }
@@ -162,7 +162,7 @@ struct menuPage: View {
                     .background(.fill)
                     .cornerRadius(radius)
                 Button(action: {
-                    jogpm().copyStuff(passwdGet)
+                    copyStuff(passwdGet)
                 }, label : {
                     Text("Copy").frame(width: btnWidth)
                 })
