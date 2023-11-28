@@ -104,7 +104,7 @@ char* reqGet(const char* url, char* headers[], int headerNum) {
         }
     }
 
-    return response.memory;
+    return response.memory; 
 }
 
 void reqPost(const char* url, const char* body, const char* headerStuff[], int headerAmount) {

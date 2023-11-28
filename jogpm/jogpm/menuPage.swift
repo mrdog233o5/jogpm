@@ -27,6 +27,8 @@ struct menuPage: View {
     @State var passwd = ""
     @State var passwdNameGet = ""
     @State var passwdGet = ""
+    @State var username = ""
+    @State var password = ""
     let btnWidth = 140.0
     let radius = 8.0
     var body: some View {
@@ -118,8 +120,8 @@ struct menuPage: View {
                     .background(.fill)
                     .cornerRadius(radius)
                 Button(action: {
-                    var username = account(0)
-                    var password = account(1)
+                    username = account(0)
+                    password = account(1)
                     let reqUrl: UnsafePointer<CChar> = ("https://jogpm-backend.vercel.app/set" as NSString).utf8String!
                     let reqBody = "{'passwordName':'" + passwdName + "', 'password':'" + passwd + "'}"
                     let reqHeadersSwiftStr = ["username:\(username)", "password:\(password)"]
@@ -143,8 +145,8 @@ struct menuPage: View {
                     .cornerRadius(radius)
 
                 Button(action: {
-                    var username = account(0)
-                    var password = account(1)
+                    username = account(0)
+                    password = account(1)
                     let reqUrl: UnsafePointer<CChar> = ("https://jogpm-backend.vercel.app/get" as NSString).utf8String!
                     let reqHeadersSwiftStr = ["username:\(username)", "password:\(password)", "passwordName:"+passwdNameGet]
                     let reqHeadersPtr = reqHeadersSwiftStr.map { strdup($0) }

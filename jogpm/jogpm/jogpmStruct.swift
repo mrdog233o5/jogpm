@@ -26,8 +26,17 @@ func copyStuff(_ cmd: String) {
 }
 
 func account(_ line: Int) -> String {
-    let path = Bundle.main.resourceURL!.path+"/account.conf"
+    setup()
+    let path = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].path+"/account.conf"
     let contents = try! String(contentsOfFile: path)
-    let lines = contents.split(separator:"\n")
+    let lines = contents.components(separatedBy: "\n")
     return String(lines[line])
+}
+
+func setup() {
+    let fileManager = FileManager.default
+    let path = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].path+"/account.conf"
+    if !fileManager.fileExists(atPath: path) {
+        fileManager.createFile(atPath: path, contents: "\n".data(using: .utf8), attributes: nil)
+    }
 }
