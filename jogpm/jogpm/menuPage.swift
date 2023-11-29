@@ -58,7 +58,7 @@ struct menuPage: View {
             }
             if (self.mode == "JogPM") {
                 VStack {
-                    let btnNames = ["Create", "Save", "Get", "Account"]
+                    let btnNames = ["Create", "Save", "Get", "Account", "Quit"]
                     ForEach(btnNames, id: \.self) { stuff in
                         Button(action: {
                             self.mode=stuff
@@ -300,6 +300,8 @@ struct menuPage: View {
                     Text("Change").frame(width: btnWidth)
                 })
                 Text(output)
+            } else if (self.mode == "Quit") {
+                exit(0)
             }
         }.padding()
     }
