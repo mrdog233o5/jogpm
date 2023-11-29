@@ -23,6 +23,7 @@ struct menuPage: View {
     @State var syb = false
     @State var length = ""
     @State var output = ""
+    @State var output2 = ""
     @State var passwdName = ""
     @State var passwd = ""
     @State var passwdNameGet = ""
@@ -49,6 +50,8 @@ struct menuPage: View {
                     } else {
                         self.mode="JogPM"
                     }
+                    self.output = ""
+                    self.output2 = ""
                 }, label : {
                     Text("Back").frame(width: btnWidth)
                 }).frame(width: btnWidth)
@@ -105,9 +108,11 @@ struct menuPage: View {
                     .cornerRadius(radius)
                 Button(action: {
                     copyStuff(output)
+                    self.output2 = "copied!"
                 }, label : {
                     Text("Copy").frame(width: btnWidth)
                 })
+                Text(output2)
             } else if (self.mode == "Save") {
                 TextField(
                     "Passwd name",
@@ -134,11 +139,13 @@ struct menuPage: View {
                     let reqHeaders = UnsafeMutablePointer<UnsafePointer<CChar>?>.allocate(capacity: reqHeadersUnsafePointers.count)
                     reqHeaders.initialize(from: &reqHeadersUnsafePointers, count: reqHeadersUnsafePointers.count)
 
-                    reqPost(reqUrl, reqBody, reqHeaders, 2)
+                    let res = String(cString: reqPost(reqUrl, reqBody, reqHeaders, 2))
+                    self.output = res
                     
                 }, label : {
                     Text("Save").frame(width: btnWidth)
                 })
+                Text(output2)
             } else if (self.mode == "Get") {
                 TextField(
                     "Passwd name",
@@ -169,9 +176,11 @@ struct menuPage: View {
                     .cornerRadius(radius)
                 Button(action: {
                     copyStuff(passwdGet)
+                    self.output2 = "copied!"
                 }, label : {
                     Text("Copy").frame(width: btnWidth)
                 })
+                Text(output2)
             } else if (self.mode == "Account") {
                 VStack {
                     let btnNames = ["Signup", "Signin", "Change Passwd"]
@@ -211,18 +220,20 @@ struct menuPage: View {
                         var reqHeadersUnsafePointers: [UnsafePointer<CChar>?] = reqHeadersPtr.map { $0.withUnsafeBufferPointer { $0.baseAddress } }
                         let reqHeaders = UnsafeMutablePointer<UnsafePointer<CChar>?>.allocate(capacity: reqHeadersUnsafePointers.count)
                         reqHeaders.initialize(from: &reqHeadersUnsafePointers, count: reqHeadersUnsafePointers.count)
-                        reqPost(reqUrl, reqBody, reqHeaders, 2)
+                        let res = String(cString: reqPost(reqUrl, reqBody, reqHeaders, 2))
+                        self.output = res
                         
                         setup()
                         let fileManager = FileManager.default
                         let path = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].path+"/account.conf"
                         let lines = [accountUsername, accountPassword]
-                        let res = lines.joined(separator: "\n").data(using: .utf8)
-                        fileManager.createFile(atPath: path, contents: res, attributes: nil)
+                        let content = lines.joined(separator: "\n").data(using: .utf8)
+                        fileManager.createFile(atPath: path, contents: content, attributes: nil)
                     }
                 }, label : {
                     Text("Signup").frame(width: btnWidth)
                 })
+                Text(output)
             } else if (self.mode == "Signin") {
                 TextField(
                     "Username",
@@ -242,9 +253,11 @@ struct menuPage: View {
                     // sign in
                     accountSet(0, accountUsername)
                     accountSet(1, accountPassword)
+                    self.output = "signed in"
                 }, label : {
                     Text("Signin").frame(width: btnWidth)
                 })
+                Text(output)
             } else if (self.mode == "Change Passwd") {
                 TextField(
                     "Old Passwd",
@@ -281,11 +294,12 @@ struct menuPage: View {
                     let res = String(cString: reqPost(reqUrl, reqBody, reqHeaders, 2))
                     if (res == "changed account password") {
                         accountSet(1, passwdNew)
+                        self.output = "changed"
                     }
-                    print("|||\(res)|||")
                 }, label : {
                     Text("Change").frame(width: btnWidth)
                 })
+                Text(output)
             }
         }.padding()
     }

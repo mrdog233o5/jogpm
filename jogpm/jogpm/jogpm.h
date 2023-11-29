@@ -31,7 +31,7 @@ char* gen(int length, bool Char, bool Num, bool Syb) {
 
     const char* chars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
     const char* nums = "1234567890";
-    const char* symbols = "!@#$%^&*-_+=";
+    const char* symbols = "!@$%^&*-_+=";
     char charsToUse[100];
     static char password[100];
     strcpy(password, "");
