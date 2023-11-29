@@ -22,8 +22,9 @@ struct MemoryStruct {
 char*   genPassword     (char* charsToUse, int ctuLen, int length);
 char*   gen             (int length, bool Char, bool Num, bool Syb);
 size_t  WriteCallback   (void* contents, size_t size, size_t nmemb, struct MemoryStruct* data);
+size_t  write_callback  (char *ptr, size_t size, size_t nmemb, char **response);
 char*   reqGet          (const char* url, char *headers[], int headerNum);
-void   reqPost         (const char* url, const char* body, const char* headerStuff[], int headerAmount);
+char*   reqPost         (const char* url, const char* body, const char* headerStuff[], int headerAmount);
 
 
 char* gen(int length, bool Char, bool Num, bool Syb) {
@@ -77,6 +78,19 @@ size_t WriteCallback(void* contents, size_t size, size_t nmemb, struct MemoryStr
     return totalSize;
 }
 
+size_t write_callback(char *ptr, size_t size, size_t nmemb, char **response) {
+    size_t response_size = size * nmemb;
+
+    // Allocate memory for the response
+    *response = (char *)realloc(*response, response_size + 1);
+
+    // Copy the response data
+    memcpy(*response, ptr, response_size);
+    (*response)[response_size] = '\0';
+
+    return response_size;
+}
+
 char* reqGet(const char* url, char* headers[], int headerNum) {
     struct MemoryStruct response;
     response.memory = malloc(1);
@@ -107,10 +121,11 @@ char* reqGet(const char* url, char* headers[], int headerNum) {
     return response.memory; 
 }
 
-void reqPost(const char* url, const char* body, const char* headerStuff[], int headerAmount) {
+char* reqPost(const char* url, const char* body, const char* headerStuff[], int headerAmount) {
     CURL *curl;
     CURLcode res;
     struct curl_slist *headers = NULL;
+    char *response = NULL;
 
     curl_global_init(CURL_GLOBAL_ALL);
     curl = curl_easy_init();
@@ -122,13 +137,17 @@ void reqPost(const char* url, const char* body, const char* headerStuff[], int h
         }
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, body);
+        
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
 
         res = curl_easy_perform(curl);
 
         curl_easy_cleanup(curl);
         curl_slist_free_all(headers);
-        if (res != CURLE_OK) return;
+        if (res != CURLE_OK) return "";
     }
     
     curl_global_cleanup();
+    return response;
 }

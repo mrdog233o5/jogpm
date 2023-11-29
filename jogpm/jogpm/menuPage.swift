@@ -31,6 +31,8 @@ struct menuPage: View {
     @State var password = ""
     @State var accountUsername = ""
     @State var accountPassword = ""
+    @State var passwdNew = ""
+    @State var passwdNewVerify = ""
     let btnWidth = 140.0
     let radius = 8.0
     var body: some View {
@@ -246,27 +248,41 @@ struct menuPage: View {
             } else if (self.mode == "Change Passwd") {
                 TextField(
                     "Old Passwd",
-                    text: $passwdNameGet
+                    text: $accountPassword
                 )
                     .frame(width: btnWidth)
                     .background(.fill)
                     .cornerRadius(radius)
                 TextField(
                     "New Passwd",
-                    text: $passwdNameGet
+                    text: $passwdNew
                 )
                     .frame(width: btnWidth)
                     .background(.fill)
                     .cornerRadius(radius)
                 TextField(
                     "Verify New Passwd",
-                    text: $passwdNameGet
+                    text: $passwdNewVerify
                 )
                     .frame(width: btnWidth)
                     .background(.fill)
                     .cornerRadius(radius)
                 Button(action: {
                     // change password
+                    setup()
+                    accountUsername = account(0)
+                    let reqUrl: UnsafePointer<CChar> = ("https://jogpm-backend.vercel.app/change" as NSString).utf8String!
+                    let reqBody = "{'new':'\(passwdNew)', 'newVerify':'\(passwdNewVerify)'}"
+                    let reqHeadersSwiftStr = ["username:\(accountUsername)", "password:\(accountPassword)"]
+                    let reqHeadersPtr = reqHeadersSwiftStr.map { $0.utf8CString }
+                    var reqHeadersUnsafePointers: [UnsafePointer<CChar>?] = reqHeadersPtr.map { $0.withUnsafeBufferPointer { $0.baseAddress } }
+                    let reqHeaders = UnsafeMutablePointer<UnsafePointer<CChar>?>.allocate(capacity: reqHeadersUnsafePointers.count)
+                    reqHeaders.initialize(from: &reqHeadersUnsafePointers, count: reqHeadersUnsafePointers.count)
+                    let res = String(cString: reqPost(reqUrl, reqBody, reqHeaders, 2))
+                    if (res == "changed account password") {
+                        accountSet(1, passwdNew)
+                    }
+                    print("|||\(res)|||")
                 }, label : {
                     Text("Change").frame(width: btnWidth)
                 })
