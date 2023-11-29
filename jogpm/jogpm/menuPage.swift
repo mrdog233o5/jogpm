@@ -29,6 +29,8 @@ struct menuPage: View {
     @State var passwdGet = ""
     @State var username = ""
     @State var password = ""
+    @State var accountUsername = ""
+    @State var accountPassword = ""
     let btnWidth = 140.0
     let radius = 8.0
     var body: some View {
@@ -184,40 +186,60 @@ struct menuPage: View {
             } else if (self.mode == "Signup") {
                 TextField(
                     "Username",
-                    text: $passwdNameGet
+                    text: $accountUsername
                 )
                     .frame(width: btnWidth)
                     .background(.fill)
                     .cornerRadius(radius)
                 TextField(
                     "Password",
-                    text: $passwdNameGet
+                    text: $accountPassword
                 )
                     .frame(width: btnWidth)
                     .background(.fill)
                     .cornerRadius(radius)
                 Button(action: {
                     // signup
+                    if (accountUsername != "" && accountPassword != "") {
+                        // send POST request
+                        let reqUrl: UnsafePointer<CChar> = ("https://jogpm-backend.vercel.app/signup" as NSString).utf8String!
+                        let reqBody = "{}"
+                        let reqHeadersSwiftStr = ["username:\(accountUsername)", "password:\(accountPassword)"]
+                        let reqHeadersPtr = reqHeadersSwiftStr.map { $0.utf8CString }
+                        var reqHeadersUnsafePointers: [UnsafePointer<CChar>?] = reqHeadersPtr.map { $0.withUnsafeBufferPointer { $0.baseAddress } }
+                        let reqHeaders = UnsafeMutablePointer<UnsafePointer<CChar>?>.allocate(capacity: reqHeadersUnsafePointers.count)
+                        reqHeaders.initialize(from: &reqHeadersUnsafePointers, count: reqHeadersUnsafePointers.count)
+                        reqPost(reqUrl, reqBody, reqHeaders, 2)
+                        
+                        setup()
+                        let fileManager = FileManager.default
+                        let path = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].path+"/account.conf"
+                        let lines = [accountUsername, accountPassword]
+                        let res = lines.joined(separator: "\n").data(using: .utf8)
+                        fileManager.createFile(atPath: path, contents: res, attributes: nil)
+                    }
                 }, label : {
                     Text("Signup").frame(width: btnWidth)
                 })
             } else if (self.mode == "Signin") {
                 TextField(
                     "Username",
-                    text: $passwdNameGet
+                    text: $accountUsername
                 )
                     .frame(width: btnWidth)
                     .background(.fill)
                     .cornerRadius(radius)
                 TextField(
                     "Password",
-                    text: $passwdNameGet
+                    text: $accountPassword
                 )
                     .frame(width: btnWidth)
                     .background(.fill)
                     .cornerRadius(radius)
                 Button(action: {
                     // sign in
+                    accountSet(0, accountUsername)
+                    accountSet(1, accountPassword)
                 }, label : {
                     Text("Signin").frame(width: btnWidth)
                 })

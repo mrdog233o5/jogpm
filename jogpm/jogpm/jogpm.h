@@ -22,8 +22,8 @@ struct MemoryStruct {
 char*   genPassword     (char* charsToUse, int ctuLen, int length);
 char*   gen             (int length, bool Char, bool Num, bool Syb);
 size_t  WriteCallback   (void* contents, size_t size, size_t nmemb, struct MemoryStruct* data);
-char*   reqGet             (const char* url, char *headers[], int headerNum);
-void    reqPost            (const char* url, const char* body, const char* headerStuff[], int headerAmount);
+char*   reqGet          (const char* url, char *headers[], int headerNum);
+void   reqPost         (const char* url, const char* body, const char* headerStuff[], int headerAmount);
 
 
 char* gen(int length, bool Char, bool Num, bool Syb) {
@@ -103,7 +103,7 @@ char* reqGet(const char* url, char* headers[], int headerNum) {
             return "";
         }
     }
-
+    curl_global_cleanup();
     return response.memory; 
 }
 
@@ -124,10 +124,11 @@ void reqPost(const char* url, const char* body, const char* headerStuff[], int h
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, body);
 
         res = curl_easy_perform(curl);
-        if (res != CURLE_OK) return;
 
         curl_easy_cleanup(curl);
         curl_slist_free_all(headers);
+        if (res != CURLE_OK) return;
     }
+    
     curl_global_cleanup();
 }
