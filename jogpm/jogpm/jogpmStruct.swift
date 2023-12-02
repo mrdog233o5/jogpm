@@ -51,3 +51,4 @@ func setup() {
         fileManager.createFile(atPath: path, contents: "\n\n".data(using: .utf8), attributes: nil)
     }
 }
+

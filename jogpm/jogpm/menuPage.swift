@@ -16,6 +16,21 @@ func isNumeric(string: String) -> Bool {
     return !matches.isEmpty
 }
 
+func listSavedPasswords() {
+    let username = account(0)
+    let password = account(1)
+    let reqUrl: UnsafePointer<CChar> = ("https://jogpm-backend.vercel.app/list" as NSString).utf8String!
+    let reqHeadersSwiftStr = ["username:\(username)", "password:\(password)"]
+    let reqHeadersPtr = reqHeadersSwiftStr.map { strdup($0) }
+    var reqHeadersUnsafePointers: [UnsafeMutablePointer<CChar>?] = reqHeadersPtr.map { UnsafeMutablePointer(mutating: $0) }
+    let reqHeaders = UnsafeMutablePointer<UnsafeMutablePointer<CChar>?>.allocate(capacity: reqHeadersUnsafePointers.count)
+    reqHeaders.initialize(from: &reqHeadersUnsafePointers, count: reqHeadersUnsafePointers.count)
+
+    let resRaw = String(cString: reqGet(reqUrl, reqHeaders, 2)).split(separator: " ")
+    
+    print(resRaw)
+}
+
 struct menuPage: View {
     @State var mode: String = "JogPM"
     @State var char = true
