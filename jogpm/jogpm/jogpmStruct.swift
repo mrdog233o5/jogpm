@@ -52,3 +52,11 @@ func setup() {
     }
 }
 
+struct PasswordInList: Identifiable {
+    let name: String
+    let id = UUID()
+
+    init(name: String) {
+        self.name = name
+    }
+}
