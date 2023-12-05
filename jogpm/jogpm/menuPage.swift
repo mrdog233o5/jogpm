@@ -26,7 +26,10 @@ func listSavedPasswords() -> [PasswordInList] {
     let reqHeaders = UnsafeMutablePointer<UnsafeMutablePointer<CChar>?>.allocate(capacity: reqHeadersUnsafePointers.count)
     reqHeaders.initialize(from: &reqHeadersUnsafePointers, count: reqHeadersUnsafePointers.count)
 
-    let resRaw = String(cString: reqGet(reqUrl, reqHeaders, 2)).split(separator: " ")
+    var resRaw = String(cString: reqGet(reqUrl, reqHeaders, 2)).split(separator: " ")
+    if (resRaw[0] == "NORMAL") {
+        resRaw.remove(at: 0)
+    }
     var res: [PasswordInList] = []
     for password in resRaw {
         res.append(PasswordInList(name: String(password)))
