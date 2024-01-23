@@ -82,7 +82,6 @@ struct menuPage: View {
                     let btnNames = ["Create", "Save", "Get", "Account", "Quit"]
                     ForEach(btnNames, id: \.self) { stuff in
                         Button(action: {
-                            self.mode=stuff
                         }, label : {
                             Text(stuff).frame(width: btnWidth, height: btnWidth*0.3)
                         }
