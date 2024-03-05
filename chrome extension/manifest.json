@@ -1,0 +1,16 @@
+{
+    "manifest_version" : 3,
+    "name" : "jogpm",
+    "version" : "1.0",
+    "description" : "JOG password manager created mrdog233o5 and James",
+    "permissions": [ "tabs", "storage" ],
+    "background" : {
+        "service_worker" : "background.js"
+    },
+    "content_scripts" : [
+        {
+            "js" : ["script.js"],
+            "matches" : ["\u003Call_urls>"]
+        }
+    ]
+}
